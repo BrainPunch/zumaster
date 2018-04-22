@@ -13,7 +13,7 @@
   <backgrounds name="background"/>
   <paths name="paths"/>
   <objects name="objects">
-    <object>objects\obj_balls</object>
+    <object>objects\obj_ball</object>
     <object>objects\control</object>
   </objects>
   <rooms name="rooms">
