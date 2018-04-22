@@ -223,7 +223,6 @@ for (var i = 0; i &lt; ds_grid_width(grid); ++i) {
         ball.y = lerp(ball.y, targetY, ball.gridSmoothing);
         var angleDiff = angle_difference(image_angle, ball.image_angle);
         ball.image_angle += lerp(0, angleDiff, ball.gridSmoothing);
-        ball.speed = 0;
     }
 }
 </string>

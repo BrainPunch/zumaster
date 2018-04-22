@@ -126,6 +126,37 @@ if (y &gt; room_height) {
         </arguments>
       </action>
     </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Speed limits
+
+if (instance_exists(grid)) {
+    speed = 0;
+} else if (speed &lt; 100/room_speed) {
+    speed += 10/room_speed;
+} else if (speed &gt; 500/room_speed) {
+    speed -= 50/room_speed;
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="4" ename="obj_ball">
       <action>
         <libid>1</libid>
