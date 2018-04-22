@@ -60,7 +60,7 @@ color = irandom(Colors.Count - 1);
             <kind>1</kind>
             <string>/// Set scaling
 
-var scale = room_width/(40*300);
+var scale = 50 / max(sprite_width, sprite_height);
 image_xscale = scale;
 image_yscale = scale;
 </string>
@@ -151,9 +151,13 @@ if (!instance_exists(grid) &amp;&amp; !instance_exists(other.grid)) {
     cluster.image_angle = point_direction(x, y, other.x, other.y);
     cluster.hspeed = mean(hspeed, other.hspeed);
     cluster.vspeed = mean(vspeed, other.vspeed);
-    cluster.speed = max(cluster.speed, 60/room_speed);
+    cluster.speed = max(0, cluster.speed, 60/room_speed);
     addBallToCluster(id, cluster);
     addBallToCluster(other, cluster);
+} else if (instance_exists(grid) &amp;&amp; instance_exists(other.grid)) {
+    var dir = point_direction(x, y, other.x, other.y);
+    //grid.direction = dir + 180 + angle_difference(dir, grid.direction);
+    //other.grid.speed = 0;
 } else if (instance_exists(grid) &amp;&amp; !instance_exists(other.grid)) {
     addBallToCluster(other, grid);
 } else if (!instance_exists(grid) &amp;&amp; instance_exists(other.grid)) {

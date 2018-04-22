@@ -16,6 +16,7 @@
     <script>scripts\addBallToCluster.gml</script>
     <script>scripts\handleCombo.gml</script>
     <script>scripts\fixCluster.gml</script>
+    <script>scripts\countCluster.gml</script>
   </scripts>
   <objects name="objects">
     <object>objects\obj_ball</object>
