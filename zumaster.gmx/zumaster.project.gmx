@@ -12,8 +12,12 @@
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <script>scripts\addBallToCluster.gml</script>
+  </scripts>
   <objects name="objects">
     <object>objects\obj_ball</object>
+    <object>objects\obj_cluster</object>
     <object>objects\control</object>
   </objects>
   <rooms name="rooms">
