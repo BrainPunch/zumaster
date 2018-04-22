@@ -60,9 +60,8 @@ color = irandom(Colors.Count - 1);
             <kind>1</kind>
             <string>/// Set scaling
 
-var scale = 50 / max(sprite_width, sprite_height);
-image_xscale = scale;
-image_yscale = scale;
+image_xscale = control.scl;
+image_yscale = control.scl;
 </string>
           </argument>
         </arguments>

@@ -30,7 +30,7 @@
 grid = ds_grid_create(1, 1);
 ds_grid_set(grid, 0, 0, noone);
 
-spacing = 50;
+spacing = control.scl * sprite_get_width(spr_balls);
 </string>
           </argument>
         </arguments>
