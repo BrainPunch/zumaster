@@ -146,6 +146,8 @@ if (y &gt; room_height) {
             <kind>1</kind>
             <string>/// Combine together
 
+if (!instance_exists(id) || !instance_exists(other)) exit;
+
 if (!instance_exists(grid) &amp;&amp; !instance_exists(other.grid)) {
     var cluster = instance_create(x, y, obj_cluster);
     cluster.image_angle = point_direction(x, y, other.x, other.y);

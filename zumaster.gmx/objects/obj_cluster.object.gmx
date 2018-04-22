@@ -186,8 +186,8 @@ y = centerY - (sin(rad)*avgX + cos(rad)*avgY) * spacing;
 
 if (speed &lt; 50/room_speed) {
     speed += 10/room_speed;
-} else if (speed &gt; 250/room_speed) {
-    speed -= 10/room_speed;
+} else if (speed &gt; 500/room_speed) {
+    speed -= 50/room_speed;
 }
 </string>
           </argument>

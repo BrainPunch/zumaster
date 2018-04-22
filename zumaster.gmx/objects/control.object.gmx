@@ -111,6 +111,7 @@ ball = instance_create(cluster.x, cluster.y-cluster.spacing, obj_ball);
 ball.color = Colors.Yellow;
 addBallToCluster(ball, cluster);
 
+cluster.speed = 0;
 cluster.image_angle = 85;
 </string>
           </argument>
