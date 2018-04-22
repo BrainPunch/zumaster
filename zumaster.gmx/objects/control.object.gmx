@@ -69,6 +69,54 @@ if (newWidth != lastWidth || newHeight != lastHeight) {
         </arguments>
       </action>
     </event>
+    <event eventtype="9" enumb="118">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Some debug code
+
+var cluster = instance_create(room_width/2, room_height/2, obj_cluster);
+cluster.rotSpeed = 60;
+
+var ball = instance_create(cluster.x+cluster.spacing, cluster.y+cluster.spacing*4, obj_ball);
+ball.color = Colors.Green;
+ball.vspeed = -60/room_speed;
+
+ball = instance_create(cluster.x, cluster.y, obj_ball);
+ball.color = Colors.Green;
+addBallToCluster(ball, cluster);
+
+ball = instance_create(cluster.x+cluster.spacing, cluster.y, obj_ball);
+ball.color = Colors.Green;
+addBallToCluster(ball, cluster);
+
+ball = instance_create(cluster.x, cluster.y+cluster.spacing, obj_ball);
+ball.color = Colors.Yellow;
+addBallToCluster(ball, cluster);
+
+ball = instance_create(cluster.x, cluster.y-cluster.spacing, obj_ball);
+ball.color = Colors.Yellow;
+addBallToCluster(ball, cluster);
+
+cluster.image_angle = 85;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="9" enumb="32">
       <action>
         <libid>1</libid>

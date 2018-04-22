@@ -86,8 +86,6 @@ image_yscale = scale;
             <string>/// Grid setup
 
 grid = noone;
-gridX = -1;
-gridY = -1;
 </string>
           </argument>
         </arguments>

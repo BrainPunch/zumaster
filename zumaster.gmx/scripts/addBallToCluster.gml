@@ -27,8 +27,9 @@ if (gridX < 0) {
     ds_grid_set_grid_region(newGrid, cluster.grid, 0, 0, oldWidth-1, oldHeight-1, 1, 0);
     ds_grid_destroy(cluster.grid);
     cluster.grid = newGrid;
-    cluster.x += lengthdir_x(cluster.spacing, image_angle+180);
-    cluster.y += lengthdir_y(cluster.spacing, image_angle+180);
+    var rad = -degtorad(cluster.image_angle);
+    cluster.x -= cos(rad) * cluster.spacing;
+    cluster.y -= sin(rad) * cluster.spacing;
     gridX = 0;
 }
 if (gridY < 0) {
@@ -39,8 +40,9 @@ if (gridY < 0) {
     ds_grid_set_grid_region(newGrid, cluster.grid, 0, 0, oldWidth-1, oldHeight-1, 0, 1);
     ds_grid_destroy(cluster.grid);
     cluster.grid = newGrid;
-    cluster.x += lengthdir_x(cluster.spacing, image_angle+90);
-    cluster.y += lengthdir_y(cluster.spacing, image_angle+90);
+    var rad = -degtorad(cluster.image_angle);
+    cluster.x -= -sin(rad) * cluster.spacing;
+    cluster.y -= cos(rad) * cluster.spacing;
     gridY = 0;
 }
 if (gridX >= ds_grid_width(cluster.grid)) {
@@ -68,8 +70,6 @@ if (instance_exists(ds_grid_get(cluster.grid, gridX, gridY))) {
 
 ds_grid_set(cluster.grid, gridX, gridY, ball);
 ball.grid = cluster;
-ball.gridX = gridX;
-ball.gridY = gridY;
 
 // Check for combos
 
