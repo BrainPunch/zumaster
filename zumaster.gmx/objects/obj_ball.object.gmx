@@ -86,6 +86,7 @@ image_yscale = scale;
             <string>/// Grid setup
 
 grid = noone;
+gridSmoothing = 0;
 </string>
           </argument>
         </arguments>

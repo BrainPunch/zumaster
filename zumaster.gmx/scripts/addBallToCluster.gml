@@ -69,6 +69,7 @@ if (instance_exists(ds_grid_get(cluster.grid, gridX, gridY))) {
 // Actually do the insertion
 
 ds_grid_set(cluster.grid, gridX, gridY, ball);
+ball.gridSmoothing = 0;
 ball.grid = cluster;
 
 // Check for combos

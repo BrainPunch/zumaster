@@ -189,9 +189,13 @@ for (var i = 0; i &lt; ds_grid_width(grid); ++i) {
     for (var j = 0; j &lt; ds_grid_height(grid); ++j) {
         var ball = ds_grid_get(grid, i, j);
         if (!instance_exists(ball)) continue;
-        ball.image_angle = image_angle;
-        ball.x = x + (cos(rad)*i - sin(rad)*j) * spacing;
-        ball.y = y + (sin(rad)*i + cos(rad)*j) * spacing;
+        var targetX = x + (cos(rad)*i - sin(rad)*j) * spacing;
+        var targetY = y + (sin(rad)*i + cos(rad)*j) * spacing;
+        ball.gridSmoothing = min(ball.gridSmoothing+3/room_speed, 1);
+        ball.x = lerp(ball.x, targetX, ball.gridSmoothing);
+        ball.y = lerp(ball.y, targetY, ball.gridSmoothing);
+        var angleDiff = angle_difference(image_angle, ball.image_angle);
+        ball.image_angle += lerp(0, angleDiff, ball.gridSmoothing);
         ball.speed = 0;
     }
 }
