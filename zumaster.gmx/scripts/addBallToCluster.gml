@@ -7,6 +7,8 @@ if (instance_exists(ball.grid)) {
     exit;
 }
 
+//Get the ball's position relative to the grid
+
 var offX = ball.x - cluster.x;
 var offY = ball.y - cluster.y;
 var rad = degtorad(cluster.image_angle);
@@ -14,6 +16,8 @@ var normX = cos(rad)*offX - sin(rad)*offY;
 var normY = sin(rad)*offX + cos(rad)*offY;
 var gridX = round(normX / cluster.spacing);
 var gridY = round(normY / cluster.spacing);
+
+// Expand the grid for this ball if necessary
 
 if (gridX < 0) {
     var oldWidth = ds_grid_width(cluster.grid);
@@ -54,7 +58,19 @@ if (gridY >= ds_grid_height(cluster.grid)) {
     gridY = oldHeight;
 }
 
-if (!instance_exists(ds_grid_get(cluster.grid, gridX, gridY))) {
-    ds_grid_set(cluster.grid, gridX, gridY, ball);
-    ball.grid = cluster;
+// Make sure there isn't already a ball here
+
+if (instance_exists(ds_grid_get(cluster.grid, gridX, gridY))) {
+    exit;
 }
+
+// Actually do the insertion
+
+ds_grid_set(cluster.grid, gridX, gridY, ball);
+ball.grid = cluster;
+ball.gridX = gridX;
+ball.gridY = gridY;
+
+// Check for combos
+
+handleCombo(cluster, gridX, gridY);

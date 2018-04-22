@@ -14,6 +14,7 @@
   <paths name="paths"/>
   <scripts name="scripts">
     <script>scripts\addBallToCluster.gml</script>
+    <script>scripts\handleCombo.gml</script>
   </scripts>
   <objects name="objects">
     <object>objects\obj_ball</object>
