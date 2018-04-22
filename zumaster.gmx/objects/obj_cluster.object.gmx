@@ -113,14 +113,62 @@ if (y &gt; room_height) {
         <arguments>
           <argument>
             <kind>1</kind>
+            <string>/// Rotate
+
+var avgX = 0;
+var avgY = 0;
+var count = 0;
+for (var i = 0; i &lt; ds_grid_width(grid); ++i) {
+    for (var j = 0; j &lt; ds_grid_height(grid); ++j) {
+        if (instance_exists(ds_grid_get(grid, i, j))) {
+            avgX += i;
+            avgY += j;
+            count += 1;
+        }
+    }
+}
+avgX /= count;
+avgY /= count;
+
+var rad = -degtorad(image_angle);
+var centerX = x + (cos(rad)*avgX - sin(rad)*avgY) * spacing;
+var centerY = y + (sin(rad)*avgX + cos(rad)*avgY) * spacing;
+
+image_angle += 60/room_speed;
+
+rad = -degtorad(image_angle);
+x = centerX - (cos(rad)*avgX - sin(rad)*avgY) * spacing;
+y = centerY - (sin(rad)*avgX + cos(rad)*avgY) * spacing;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
             <string>/// Update ball positions
 
+var rad = -degtorad(image_angle);
 for (var i = 0; i &lt; ds_grid_width(grid); ++i) {
     for (var j = 0; j &lt; ds_grid_height(grid); ++j) {
         var ball = ds_grid_get(grid, i, j);
         if (!instance_exists(ball)) continue;
-        ball.x = x + i * spacing;
-        ball.y = y + j * spacing;
+        ball.image_angle = image_angle;
+        ball.x = x + (cos(rad)*i - sin(rad)*j) * spacing;
+        ball.y = y + (sin(rad)*i + cos(rad)*j) * spacing;
         ball.speed = 0;
     }
 }

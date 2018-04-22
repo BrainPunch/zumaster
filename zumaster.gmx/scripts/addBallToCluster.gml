@@ -3,8 +3,17 @@
 var ball = argument0;
 var cluster = argument1;
 
-var gridX = round((ball.x - cluster.x) / cluster.spacing);
-var gridY = round((ball.y - cluster.y) / cluster.spacing);
+if (instance_exists(ball.grid)) {
+    exit;
+}
+
+var offX = ball.x - cluster.x;
+var offY = ball.y - cluster.y;
+var rad = degtorad(cluster.image_angle);
+var normX = cos(rad)*offX - sin(rad)*offY;
+var normY = sin(rad)*offX + cos(rad)*offY;
+var gridX = round(normX / cluster.spacing);
+var gridY = round(normY / cluster.spacing);
 
 if (gridX < 0) {
     var oldWidth = ds_grid_width(cluster.grid);
@@ -14,7 +23,8 @@ if (gridX < 0) {
     ds_grid_set_grid_region(newGrid, cluster.grid, 0, 0, oldWidth-1, oldHeight-1, 1, 0);
     ds_grid_destroy(cluster.grid);
     cluster.grid = newGrid;
-    cluster.x -= cluster.spacing;
+    cluster.x += lengthdir_x(cluster.spacing, image_angle+180);
+    cluster.y += lengthdir_y(cluster.spacing, image_angle+180);
     gridX = 0;
 }
 if (gridY < 0) {
@@ -25,7 +35,8 @@ if (gridY < 0) {
     ds_grid_set_grid_region(newGrid, cluster.grid, 0, 0, oldWidth-1, oldHeight-1, 0, 1);
     ds_grid_destroy(cluster.grid);
     cluster.grid = newGrid;
-    cluster.y -= cluster.spacing;
+    cluster.x += lengthdir_x(cluster.spacing, image_angle+90);
+    cluster.y += lengthdir_y(cluster.spacing, image_angle+90);
     gridY = 0;
 }
 if (gridX >= ds_grid_width(cluster.grid)) {

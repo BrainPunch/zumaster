@@ -149,6 +149,7 @@ if (y &gt; room_height) {
 
 if (!instance_exists(grid) &amp;&amp; !instance_exists(other.grid)) {
     var cluster = instance_create(x, y, obj_cluster);
+    cluster.image_angle = point_direction(x, y, other.x, other.y);
     cluster.hspeed = mean(hspeed, other.hspeed);
     cluster.vspeed = mean(vspeed, other.vspeed);
     cluster.speed = max(cluster.speed, 60/room_speed);
