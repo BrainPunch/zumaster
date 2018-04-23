@@ -28,7 +28,9 @@
             <string>color = 0;
 rot = 0;
 scl = 1;
-motion_set(obj_ship.rot+90,10);
+physics_apply_local_impulse(0, 0,
+    lengthdir_x(1000, obj_ship.phy_rotation+90),
+    lengthdir_y(1000, obj_ship.phy_rotation+90));
 </string>
           </argument>
         </arguments>
@@ -76,8 +78,10 @@ motion_set(obj_ship.rot+90,10);
           <argument>
             <kind>1</kind>
             <string>var inst = instance_create(x,y,obj_ball);
-inst.speed = speed;
-inst.direction = direction;
+inst.phy_rotation = phy_rotation;
+inst.phy_speed_x = phy_speed_x;
+inst.phy_speed_y = phy_speed_y;
+inst.phy_angular_velocity = phy_angular_velocity;
 inst.color = color;
 </string>
           </argument>
@@ -162,16 +166,19 @@ draw_sprite_ext(spr_highlight,0,x,y,scl,scl,0,c_white,0.8);
       </action>
     </event>
   </events>
-  <PhysicsObject>0</PhysicsObject>
-  <PhysicsObjectSensor>0</PhysicsObjectSensor>
+  <PhysicsObject>-1</PhysicsObject>
+  <PhysicsObjectSensor>-1</PhysicsObjectSensor>
   <PhysicsObjectShape>0</PhysicsObjectShape>
   <PhysicsObjectDensity>0.5</PhysicsObjectDensity>
   <PhysicsObjectRestitution>0.100000001490116</PhysicsObjectRestitution>
   <PhysicsObjectGroup>0</PhysicsObjectGroup>
-  <PhysicsObjectLinearDamping>0.100000001490116</PhysicsObjectLinearDamping>
-  <PhysicsObjectAngularDamping>0.100000001490116</PhysicsObjectAngularDamping>
+  <PhysicsObjectLinearDamping>0</PhysicsObjectLinearDamping>
+  <PhysicsObjectAngularDamping>0</PhysicsObjectAngularDamping>
   <PhysicsObjectFriction>0.200000002980232</PhysicsObjectFriction>
   <PhysicsObjectAwake>-1</PhysicsObjectAwake>
   <PhysicsObjectKinematic>0</PhysicsObjectKinematic>
-  <PhysicsShapePoints/>
+  <PhysicsShapePoints>
+    <point>32,32</point>
+    <point>32,36</point>
+  </PhysicsShapePoints>
 </object>

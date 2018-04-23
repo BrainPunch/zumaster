@@ -20,10 +20,7 @@
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
-    <script>scripts\addBallToCluster.gml</script>
-    <script>scripts\fixCluster.gml</script>
-    <script>scripts\handleCombo.gml</script>
-    <script>scripts\countCluster.gml</script>
+    <script>scripts\checkForCombo.gml</script>
   </scripts>
   <objects name="objects">
     <object>objects\obj_projectile</object>
@@ -31,7 +28,6 @@
     <object>objects\obj_ship</object>
     <object>objects\control</object>
     <object>objects\object3</object>
-    <object>objects\obj_cluster</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>

@@ -66,17 +66,15 @@ if (instance_exists(ds_grid_get(cluster.grid, gridX, gridY))) {
     exit;
 }
 
+// Create a joint with adjacent balls
+
+
+
 // Actually do the insertion
 
 ds_grid_set(cluster.grid, gridX, gridY, ball);
 ball.gridSmoothing = 0;
 ball.grid = cluster;
-
-// Add momentum to the cluster
-
-var clusterSize = countCluster(cluster);
-cluster.hspeed = lerp(cluster.hspeed, ball.hspeed, 1/clusterSize);
-cluster.vspeed = lerp(cluster.vspeed, ball.vspeed, 1/clusterSize);
 
 // Check for combos
 

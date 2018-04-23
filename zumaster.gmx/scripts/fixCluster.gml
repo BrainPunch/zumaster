@@ -31,8 +31,6 @@ for (var i = 0; i < ds_grid_width(grid); ++i) {
             
             ball.grid = noone;
             ds_grid_set(grid, gridX, gridY, noone);
-            ball.hspeed = ball.x - ball.xprevious;
-            ball.vspeed = ball.y - ball.yprevious;
             addBallToCluster(ball, cluster);
             
             ds_queue_enqueue(queue, gridX-1, gridY);

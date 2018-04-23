@@ -84,8 +84,59 @@ image_yscale = control.scl;
             <kind>1</kind>
             <string>/// Grid setup
 
-grid = noone;
-gridSmoothing = 0;
+adjacent = ds_map_create();
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Physics setup
+
+var fixture = physics_fixture_create();
+physics_fixture_set_circle_shape(fixture, min(sprite_width, sprite_height)/2);
+physics_fixture_set_density(fixture, 0.5);
+physics_fixture_bind(fixture, id);
+physics_fixture_delete(fixture);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Cleanup
+
+ds_map_destroy(adjacent);
 </string>
           </argument>
         </arguments>
@@ -110,47 +161,18 @@ gridSmoothing = 0;
             <kind>1</kind>
             <string>/// Screen wrapping
 
-if (x &gt; room_width) {
-    x -= room_width;
-} else if (x &lt; 0) {
-    x += room_width;
+var force = 500;
+
+if (phy_position_x &gt; room_width) {
+    physics_apply_force(phy_position_x, phy_position_y, -force, 0);
+} else if (phy_position_x &lt; 0) {
+    physics_apply_force(phy_position_x, phy_position_y, force, 0);
 }
 
-if (y &gt; room_height) {
-    y -= room_height;
-} else if (y &lt; 0) {
-    y += room_height;
-}
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="3" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>/// Speed limits
-
-if (instance_exists(grid)) {
-    speed = 0;
-} else if (speed &lt; 100/room_speed) {
-    speed += 10/room_speed;
-} else if (speed &gt; 500/room_speed) {
-    speed -= 50/room_speed;
+if (phy_position_y &gt; room_height) {
+    physics_apply_force(phy_position_x, phy_position_y, 0, -force);
+} else if (phy_position_y &lt; 0) {
+    physics_apply_force(phy_position_x, phy_position_y, 0, force);
 }
 </string>
           </argument>
@@ -178,22 +200,15 @@ if (instance_exists(grid)) {
 
 if (!instance_exists(id) || !instance_exists(other)) exit;
 
-if (!instance_exists(grid) &amp;&amp; !instance_exists(other.grid)) {
-    var cluster = instance_create(x, y, obj_cluster);
-    cluster.image_angle = point_direction(x, y, other.x, other.y);
-    cluster.hspeed = mean(hspeed, other.hspeed);
-    cluster.vspeed = mean(vspeed, other.vspeed);
-    cluster.speed = max(0, cluster.speed, 60/room_speed);
-    addBallToCluster(id, cluster);
-    addBallToCluster(other, cluster);
-} else if (instance_exists(grid) &amp;&amp; instance_exists(other.grid)) {
-    var dir = point_direction(x, y, other.x, other.y);
-    //grid.direction = dir + 180 + angle_difference(dir, grid.direction);
-    //other.grid.speed = 0;
-} else if (instance_exists(grid) &amp;&amp; !instance_exists(other.grid)) {
-    addBallToCluster(other, grid);
-} else if (!instance_exists(grid) &amp;&amp; instance_exists(other.grid)) {
-    addBallToCluster(id, other.grid);
+if (!ds_map_exists(adjacent, other.id)) {
+    var joint = physics_joint_distance_create(id, other,
+        phy_position_x, phy_position_y,
+        other.phy_position_x, other.phy_position_y,
+        false);
+    ds_map_add(adjacent, other.id, joint);
+    ds_map_add(other.adjacent, id, joint);
+    
+    checkForCombo(id);
 }
 </string>
           </argument>
@@ -225,6 +240,8 @@ draw_set_blend_mode(bm_add);
 draw_sprite_ext(spr_multiplier, 0, x, y, image_xscale, image_yscale, 0, image_blend, 0.35);
 draw_set_blend_mode(bm_normal);
 draw_sprite_ext(spr_highlight, 0, x, y, image_xscale, image_yscale, 0, image_blend, 0.8);
+
+physics_draw_debug();
 </string>
           </argument>
         </arguments>
@@ -237,8 +254,8 @@ draw_sprite_ext(spr_highlight, 0, x, y, image_xscale, image_yscale, 0, image_ble
   <PhysicsObjectDensity>0.5</PhysicsObjectDensity>
   <PhysicsObjectRestitution>0.100000001490116</PhysicsObjectRestitution>
   <PhysicsObjectGroup>0</PhysicsObjectGroup>
-  <PhysicsObjectLinearDamping>0.100000001490116</PhysicsObjectLinearDamping>
-  <PhysicsObjectAngularDamping>0.100000001490116</PhysicsObjectAngularDamping>
+  <PhysicsObjectLinearDamping>0</PhysicsObjectLinearDamping>
+  <PhysicsObjectAngularDamping>0</PhysicsObjectAngularDamping>
   <PhysicsObjectFriction>0.200000002980232</PhysicsObjectFriction>
   <PhysicsObjectAwake>-1</PhysicsObjectAwake>
   <PhysicsObjectKinematic>0</PhysicsObjectKinematic>
