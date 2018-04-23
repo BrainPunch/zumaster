@@ -142,7 +142,7 @@ ds_map_destroy(adjacent);
         </arguments>
       </action>
     </event>
-    <event eventtype="3" enumb="2">
+    <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -159,7 +159,7 @@ ds_map_destroy(adjacent);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// Screen wrapping
+            <string>/// Screen limit
 
 var force = 500;
 
@@ -173,6 +173,33 @@ if (phy_position_y &gt; room_height) {
     physics_apply_force(phy_position_x, phy_position_y, 0, -force);
 } else if (phy_position_y &lt; 0) {
     physics_apply_force(phy_position_x, phy_position_y, 0, force);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Speed limit
+
+if (phy_speed &gt; 3) {
+    physics_apply_force(
+        phy_position_x, phy_position_y,
+        -5*phy_speed_x, -5*phy_speed_y);
 }
 </string>
           </argument>
@@ -200,7 +227,25 @@ if (phy_position_y &gt; room_height) {
 
 if (!instance_exists(id) || !instance_exists(other)) exit;
 
-if (!ds_map_exists(adjacent, other.id)) {
+var doConnect = !ds_map_exists(adjacent, other.id);
+if (!inSameClump(id, other.id)) {
+    var mySize = countClumpSize(id);
+    var otherSize = countClumpSize(other.id);
+    
+    var minSize = min(mySize, otherSize);
+    var maxSize = max(mySize, otherSize);
+    var ratioSize = minSize / maxSize;
+    
+    if (minSize &gt; 12) {
+        //Large clumps don't connect
+        doConnect = false;
+    } else if (ratioSize &gt; 0.3 &amp;&amp; minSize &gt; 6) {
+        //Similarly sized clumps don't connect
+        doConnect = false;
+    }
+}
+
+if (doConnect) {
     var joint = physics_joint_distance_create(id, other,
         phy_position_x, phy_position_y,
         other.phy_position_x, other.phy_position_y,
@@ -240,8 +285,6 @@ draw_set_blend_mode(bm_add);
 draw_sprite_ext(spr_multiplier, 0, x, y, image_xscale, image_yscale, 0, image_blend, 0.35);
 draw_set_blend_mode(bm_normal);
 draw_sprite_ext(spr_highlight, 0, x, y, image_xscale, image_yscale, 0, image_blend, 0.8);
-
-physics_draw_debug();
 </string>
           </argument>
         </arguments>
