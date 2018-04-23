@@ -155,7 +155,7 @@ if y &gt; room_height {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite_ext(spr_balls,color,x,y,scl,scl,rot,c_white,1);
+            <string>draw_sprite_ext(spr_balls,color,x,y,scl,scl,phy_rotation,c_white,1);
 draw_set_blend_mode(bm_add);
 draw_sprite_ext(spr_multiplier,0,x,y,scl,scl,0,c_white,0.35);
 draw_set_blend_mode(bm_normal);

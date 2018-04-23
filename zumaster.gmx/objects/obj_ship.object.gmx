@@ -27,8 +27,7 @@
             <kind>1</kind>
             <string>randomize();
 color = irandom_range(0,5);
-rot = 0;
-scl = 1;
+scl = control.scl;
 </string>
           </argument>
         </arguments>
@@ -51,14 +50,17 @@ scl = 1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>scl = control.scl;
+            <string>
 if keyboard_check_released(vk_space){
     audio_sound_pitch(shoot,(color+3)/6);
     audio_play_sound(shoot,1,0);
-    var inst = instance_create(x+lengthdir_x(20,phy_rotation+90),y + lengthdir_y(20,phy_rotation+90),obj_projectile);
+    var inst = instance_create(
+        x+lengthdir_x(20,phy_rotation+90),
+        y+lengthdir_y(20,phy_rotation+90),
+        obj_projectile);
     inst.scl = scl;
     inst.color = color;
-    inst.rot = rot;
+    //inst.phy_rotation = phy_rotation;
     //effect_create_above(ef_spark,x+lengthdir_x(10,rot+90),y+lengthdir_y(10,rot+90),0,c_white);
     color = irandom(Colors.Count-1);
 }
@@ -81,6 +83,28 @@ if phy_position_y &gt; room_height+margin {
         </arguments>
       </action>
     </event>
+    <event eventtype="4" ename="obj_ball">
+      <action>
+        <libid>1</libid>
+        <id>605</id>
+        <kind>0</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>0</useapplyto>
+        <exetype>0</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>oops!</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="5" enumb="87">
       <action>
         <libid>1</libid>
@@ -98,7 +122,7 @@ if phy_position_y &gt; room_height+margin {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var force = 50000;
+            <string>var force = 200;
 physics_apply_force(phy_position_x, phy_position_y,
     lengthdir_x(force, phy_rotation+90),
     lengthdir_y(force, phy_rotation+90));
@@ -390,22 +414,18 @@ draw_sprite_ext(spr_ship,0,x,y,scl,scl,phy_rotation,c_white,1);
     </event>
   </events>
   <PhysicsObject>-1</PhysicsObject>
-  <PhysicsObjectSensor>-1</PhysicsObjectSensor>
-  <PhysicsObjectShape>2</PhysicsObjectShape>
+  <PhysicsObjectSensor>0</PhysicsObjectSensor>
+  <PhysicsObjectShape>0</PhysicsObjectShape>
   <PhysicsObjectDensity>0.5</PhysicsObjectDensity>
   <PhysicsObjectRestitution>0.100000001490116</PhysicsObjectRestitution>
   <PhysicsObjectGroup>0</PhysicsObjectGroup>
-  <PhysicsObjectLinearDamping>0.5</PhysicsObjectLinearDamping>
-  <PhysicsObjectAngularDamping>1</PhysicsObjectAngularDamping>
+  <PhysicsObjectLinearDamping>1</PhysicsObjectLinearDamping>
+  <PhysicsObjectAngularDamping>5</PhysicsObjectAngularDamping>
   <PhysicsObjectFriction>0.200000002980232</PhysicsObjectFriction>
   <PhysicsObjectAwake>-1</PhysicsObjectAwake>
   <PhysicsObjectKinematic>0</PhysicsObjectKinematic>
   <PhysicsShapePoints>
-    <point>64,288</point>
-    <point>240,0</point>
-    <point>544,0</point>
-    <point>720,288</point>
-    <point>592,512</point>
-    <point>192,512</point>
+    <point>391,285</point>
+    <point>13,391</point>
   </PhysicsShapePoints>
 </object>

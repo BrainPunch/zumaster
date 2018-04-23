@@ -23,6 +23,7 @@
     <script>scripts\checkForCombo.gml</script>
     <script>scripts\countClumpSize.gml</script>
     <script>scripts\inSameClump.gml</script>
+    <script>scripts\spawnClump.gml</script>
   </scripts>
   <objects name="objects">
     <object>objects\obj_projectile</object>
