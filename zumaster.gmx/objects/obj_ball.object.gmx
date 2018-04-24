@@ -38,6 +38,8 @@ enum Colors {
 }
 
 color = irandom(Colors.Count - 1);
+
+col = 0;
 </string>
           </argument>
         </arguments>
@@ -141,6 +143,49 @@ ds_map_destroy(adjacent);
           </argument>
         </arguments>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>701</id>
+        <kind>0</kind>
+        <userelative>-1</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>0</useapplyto>
+        <exetype>1</exetype>
+        <functionname>action_set_score</functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>-1</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>0</kind>
+            <string>10</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>audio_sound_pitch(explode,(color+3)/6);
+audio_play_sound(explode,1,0);
+effect_create_below(ef_firework,x,y,0,col);
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
     <event eventtype="3" enumb="0">
       <action>
@@ -205,6 +250,39 @@ if (phy_speed &gt; 3) {
           </argument>
         </arguments>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if color = 0 {
+    col = c_red;
+    }else if color = 1 {
+        col = c_orange;
+        }else if color = 2 {
+            col = c_yellow;
+            }else if color = 3 {
+                col = c_green;
+                }else if color = 4 {
+                    col = c_blue;
+                    }else if color = 5 {
+                        col = c_purple;
+                        }
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
     <event eventtype="4" ename="obj_ball">
       <action>
@@ -255,6 +333,30 @@ if (doConnect) {
     
     checkForCombo(id);
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// play sound
+
+audio_sound_pitch(bounce,(color+3)/6);
+audio_play_sound(bounce,1,0);
 </string>
           </argument>
         </arguments>

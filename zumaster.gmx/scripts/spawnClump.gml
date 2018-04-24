@@ -4,7 +4,7 @@ var cx = argument0;
 var cy = argument1;
 
 var range = 250;
-repeat (irandom_range(12, 24)) {
+repeat (irandom_range(30, 50)) {
     var px = random_range(-range, range)+cx;
     var py = random_range(-range, range)+cy;
     var ball = instance_create(px, py, obj_ball);

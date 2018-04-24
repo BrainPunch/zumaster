@@ -7,6 +7,11 @@
   <sounds name="sound">
     <sound>sound\ignition</sound>
     <sound>sound\shoot</sound>
+    <sound>sound\bounce</sound>
+    <sound>sound\explode</sound>
+    <sound>sound\hurt</sound>
+    <sound>sound\die</sound>
+    <sound>sound\theme</sound>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\spr_balls</sprite>
@@ -24,16 +29,31 @@
     <script>scripts\countClumpSize.gml</script>
     <script>scripts\inSameClump.gml</script>
     <script>scripts\spawnClump.gml</script>
+    <script>scripts\save_high_score.gml</script>
   </scripts>
+  <fonts name="fonts">
+    <font>fonts\font0</font>
+    <font>fonts\font1</font>
+    <font>fonts\font2</font>
+    <font>fonts\font3</font>
+  </fonts>
   <objects name="objects">
     <object>objects\obj_projectile</object>
     <object>objects\obj_ball</object>
+    <object>objects\object7</object>
     <object>objects\obj_ship</object>
     <object>objects\control</object>
     <object>objects\object3</object>
+    <object>objects\title</object>
+    <object>objects\end_control</object>
+    <object>objects\object9</object>
+    <object>objects\object10</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\room1</room>
     <room>rooms\room0</room>
+    <room>rooms\room2</room>
+    <room>rooms\room3</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>

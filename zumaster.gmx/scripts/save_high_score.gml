@@ -1,0 +1,5 @@
+ini_open("highscore.ini")
+score1=ini_read_real("highscore","highscore",0)
+if (score > score1)
+    ini_write_real("highscore","highscore",score)
+ini_close()
